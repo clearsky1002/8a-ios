@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  ProfileVC.h
 //  8a-ios
 //
-//  Created by Uncovered on 4/20/17.
+//  Created by Kristoffer Yap on 4/21/17.
 //  Copyright © 2017 Allfree Group LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface ProfileVC : UIViewController
 
 @end
-
