@@ -14,4 +14,21 @@
     return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 }
 
+
+-(NSString*) getNormalizedPhoneNumber
+{
+    NSString* prefix = @"";
+    NSString* phoneString;
+    phoneString = [[self componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
+    if(phoneString.length == 10)
+    {
+        prefix = @"+1";
+    }
+    else if(phoneString.length == 11)
+    {
+        prefix = @"+";
+    }
+    return [NSString stringWithFormat:@"%@%@", prefix, phoneString];
+}
+
 @end

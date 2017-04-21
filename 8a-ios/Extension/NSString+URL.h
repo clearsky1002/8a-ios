@@ -11,5 +11,6 @@
 @interface NSString (URL)
 
 - (NSString *)stringByAddingPercentEncodingForURLQueryValue;
+- (NSString*) getNormalizedPhoneNumber;
 
 @end

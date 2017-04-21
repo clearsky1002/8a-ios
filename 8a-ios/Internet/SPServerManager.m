@@ -9,6 +9,7 @@
 #import "SPServerManager.h"
 #import "SPCommunicationManager.h"
 #import "UserContext.h"
+#import "NSString+URL.h"
 
 @interface SPServerManager()
 
@@ -51,13 +52,16 @@
 }
 
 - (void)getSmsCode:(NSString *)phoneNumber complete:(CompleteCallback)completeBlock {
-    NSDictionary* postData = [NSDictionary dictionaryWithObjectsAndKeys:phoneNumber, @"phoneNumber", nil];
+    NSString* formattedNumber = [phoneNumber getNormalizedPhoneNumber];
+    
+    NSDictionary* postData = [NSDictionary dictionaryWithObjectsAndKeys:formattedNumber, @"phoneNumber", nil];
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@", self.hostUrl, kGetSms];
     [[SPCommunicationManager sharedInstance] postAndReturnDictionary:postData url:requestUrl postCompleted:completeBlock];
 }
 
 - (void)login:(NSString*)phoneNumber code:(NSString*) code complete:(CompleteCallback) completeBlock {
-    NSDictionary* postData = [NSDictionary dictionaryWithObjectsAndKeys:phoneNumber, @"phoneNumber",
+    NSString* formattedNumber = [phoneNumber getNormalizedPhoneNumber];
+    NSDictionary* postData = [NSDictionary dictionaryWithObjectsAndKeys:formattedNumber, @"phoneNumber",
                               code, @"confirmationCode", nil];
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@", self.hostUrl, kLogin];
     [[SPCommunicationManager sharedInstance] postAndReturnDictionary:postData url:requestUrl postCompleted:^(BOOL success, SPAPIResponse *response) {
